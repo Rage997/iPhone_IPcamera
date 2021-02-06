@@ -55,7 +55,7 @@ var get_last_image = function( ){
 
 // Convert all the images into a video using ffmpeg
 var convert_video = function(){
-    exec("ffmpeg -framerate 1 -pattern_type glob -i '${cameraroll_path}/*.jpg' video.mp4")
+    exec("ffmpeg -y -framerate 1 -i ${cameraroll_path}/*.JPG -r 5 -c:v libx264 -pix_fmt yuv420p ./video.mp4")
 }
 
 // Deletes all images
@@ -83,8 +83,18 @@ setInterval( () => {
             io.emit('image', {image: true, buffer: buffer.toString('base64') })
     })
     }
-    
+
 }, interval*1000)
+
+// At midnight: create a video of the day and delete all images
+setTimeout(
+    ()=>{
+        convert_video()
+        clean()  
+    },
+    moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds')
+ );
+
 
 server.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
