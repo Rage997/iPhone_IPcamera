@@ -7,8 +7,7 @@ const fs = require('fs')
 var exec = require('child_process').exec;
 
 port = 3000
-// cameraroll_path = '/private/var/mobile/Media/DCIM/100APPLE'
-cameraroll_path = '/Users/pietrobianco/Desktop'
+cameraroll_path = '/private/var/mobile/Media/DCIM/100APPLE'
 
 app.get('/', function(request, response){
     response.sendFile( path.join(__dirname, 'index.html'));
@@ -17,15 +16,15 @@ app.get('/', function(request, response){
 // We can control the camera using activator
 // see: http://junesiphone.com/actions/
 // not the best solution because the device will unlock to take a photo but it's the best I managed to do
-var capture_img = function(option){
-    if (option.keep_open == false){
-    exec('activator send libactivator.lockscreen.toggle')
-    exec('activator send com.apple.camera')
-    exec('activator send libactivator.camera.invoke-shutter')
-    exec('activator send libactivator.lockscreen.toggle')
+var capture_img = function(keep_open=false){
+    if (keep_open == true){
+        exec('activator send libactivator.camera.invoke-shutter')
     }
     else{
+        exec('activator send libactivator.lockscreen.toggle')
+        exec('activator send com.apple.camera')
         exec('activator send libactivator.camera.invoke-shutter')
+        exec('activator send libactivator.lockscreen.toggle')
     }
 }
 
