@@ -17,10 +17,10 @@ app.get('/', function(request, response){
 // see: http://junesiphone.com/actions/
 // not the best solution because the device will unlock to take a photo but it's the best I managed to do
 var capture_img = function(keep_open=false){
+    console.log('Taking picture')
     if (keep_open == true){
         exec('activator send libactivator.camera.invoke-shutter')
-    }
-    else{
+    }else{
         exec('activator send libactivator.lockscreen.toggle')
         exec('activator send com.apple.camera')
         exec('activator send libactivator.camera.invoke-shutter')
@@ -62,11 +62,15 @@ var clean = function(){
     exec('rm -rf /private/var/mobile/Media/PhotoData')
 }
 
-interval = 3 * 1000 // 30 minutes 
+interval = 5 * 1000 // 30 minutes 
 // Populate image element with webcam each second
 setInterval( () => {
-    console.log('Taking picture')
-    capture_img()
+    if (interval < 10){
+        capture_img(keep_open=true)        
+    }else{
+        capture_img(keep_open=false)
+    }
+    
     get_last_image()
     if (newest_file != null){
         console.log('Updating newest picture')
