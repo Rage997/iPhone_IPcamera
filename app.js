@@ -21,11 +21,12 @@ var capture_img = function(keep_open=false){
     if (keep_open == true){
         exec('activator send libactivator.camera.invoke-shutter')
     }else{
-        exec('activator send libactivator.lockscreen.toggle')
-        exec('sleep 5')
-        exec('activator send com.apple.camera')
-        exec('activator send libactivator.camera.invoke-shutter')
-        exec('activator send libactivator.lockscreen.toggle')
+        exec("activator send libactivator.lockscreen.toggle &&' \
+        sleep 5 \
+        activator send com.apple.camera \
+        activator send libactivator.camera.invoke-shutter \
+        sleep 5 \
+        activator send libactivator.lockscreen.toggle")
     }
 }
 
