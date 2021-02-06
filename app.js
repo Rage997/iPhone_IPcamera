@@ -8,7 +8,7 @@ var exec = require('child_process').exec;
 
 port = 3000
 cameraroll_path = '/private/var/mobile/Media/DCIM/100APPLE'
-cameraroll_path = '/Users/pietrobianco/Desktop'
+
 app.get('/', function(request, response){
     response.sendFile( path.join(__dirname, 'index.html'));
 });
