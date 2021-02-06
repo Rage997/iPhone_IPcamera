@@ -15,19 +15,19 @@ the default root password is <em>alpine</em>
 
 After first ssh connection, I reccomend to change both root and mobile passwords for security.
 
-1. Add https://mcapollo.github.io/Public/ and https://repo.packix.com/ to the Cydia sources
+2. Add https://mcapollo.github.io/Public/ and https://repo.packix.com/ to the Cydia sources
 
 ```echo "deb https://repo.packix.com/ ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
 
 ```echo "deb https://mcapollo.github.io/Public/ ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
 
-2. Now you can install node, ffmpeg and git
+3. Now you can install node, ffmpeg and git
 
 apt install ffmpeg node
 
-3. Clone this repo inside the iphone and start the webserver by running ```node app.js```
+4. Clone this repo inside the iphone and start the webserver by running ```node app.js```
 
-4. Done! Now you can connect on port 3000
+5. Done! Now you can connect on port 3000
 
 
 # TODO
