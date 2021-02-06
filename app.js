@@ -22,6 +22,7 @@ var capture_img = function(keep_open=false){
         exec('activator send libactivator.camera.invoke-shutter')
     }else{
         exec('activator send libactivator.lockscreen.toggle')
+        exec('sleep 5')
         exec('activator send com.apple.camera')
         exec('activator send libactivator.camera.invoke-shutter')
         exec('activator send libactivator.lockscreen.toggle')
@@ -75,7 +76,6 @@ setInterval( () => {
     if (newest_file != null){
         console.log('Updating newest picture')
         image = newest_file
-        console.log('diocane immage', image)
         fs.readFile(image, (err, buffer) => {  
             io.emit('image', {image: true, buffer: buffer.toString('base64') })
     })
