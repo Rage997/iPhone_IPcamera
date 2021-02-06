@@ -25,7 +25,7 @@ After first ssh connection, I reccomend to change both root and mobile passwords
 
 apt install ffmpeg node
 
-4. Clone this repo inside the iphone and start the webserver by running ```node app.js```
+4. Clone this repo inside the iphone and start the webserver by running ```node app.js``` after having installed the dependecies ```npm i```
 
 5. Done! Now you can connect on port 3000
 
