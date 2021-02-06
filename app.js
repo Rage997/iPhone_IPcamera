@@ -4,6 +4,7 @@ const path = require('path')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const fs = require('fs')
+const moment= require('moment') 
 var exec = require('child_process').exec;
 
 port = 3000
@@ -12,6 +13,20 @@ cameraroll_path = '/private/var/mobile/Media/DCIM/100APPLE'
 app.get('/', function(request, response){
     response.sendFile( path.join(__dirname, 'index.html'));
 });
+
+//todo send video if available
+app.get('/download', function(request, response){
+    fs.access('./video.mp4', fs.F_OK, (err) => {
+        if (err) {
+            console.error(err)
+            response.writeHead(400, {"Content-Type": "text/plain"});
+            response.end("ERROR File does not exist");
+            return
+        }
+            response.sendFile( path.join(__dirname, 'video.mp4'));
+      })
+});
+
 
 // We can control the camera using activator
 // see: http://junesiphone.com/actions/

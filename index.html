@@ -2,6 +2,8 @@
     <body>
         <h1>iPhone image streaming application</h1>
         <button>Front/face camera</button>
+        <a href="/download" class="button">Download daily video (if available)</a>
+
         <img id='image'>
 
         <script src="/socket.io/socket.io.js"></script>
@@ -14,6 +16,13 @@
                 console.log('image url:', image)
                 reload()
             })
+
+            button.addEventListener('click', function(e) {
+            console.log('button was clicked');
+            window.location="./download"
+            // or window.open(url, '_blank') for new window.
+            });
+
         </script>
     </body>
 </html>
