@@ -78,7 +78,7 @@ setInterval( () => {
     if (newest_file != null){
         console.log('Updating newest picture')
         image = newest_file
-        fs.readFile('image', (err, buffer) => {  
+        fs.readFile(image, (err, buffer) => {  
             if (err) throw err;
             io.emit('image', {image: true, buffer: buffer.toString('base64') })
     })
