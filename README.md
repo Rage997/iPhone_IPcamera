@@ -5,9 +5,12 @@ The idea is to repurpose an old iphone as a wifi camera. To do so the iphone wil
 # Installation
 
 1. Jailbreak using checkrain to open ssh port and then run on one terminal:
+
 ```iproxy 44 23```
 then open a new terminal and run:
+
 ```ssh root@localhost -p 44```
+
 the default root password is <em>alpine</em>
 
 After first ssh connection, I reccomend to change both root and mobile passwords for security.
@@ -15,14 +18,14 @@ After first ssh connection, I reccomend to change both root and mobile passwords
 1. Add https://mcapollo.github.io/Public/ and https://repo.packix.com/ to the Cydia sources
 
 ```echo "deb https://repo.packix.com/ ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
+
 ```echo "deb https://mcapollo.github.io/Public/ ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
 
 1. Now you can install node, ffmpeg and git
 
 apt install ffmpeg node
 
-1. Clone this repo inside the iphone and start the webserver 
-```node app.js```
+1. Clone this repo inside the iphone and start the webserver by running ```node app.js```
 
 1. Done! Now you can connect on port 3000
 
