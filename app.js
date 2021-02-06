@@ -70,17 +70,19 @@ var get_last_image = function( ){
 
 // Convert all the images into a video using ffmpeg
 var convert_video = function(){
+    console.log('Converting images into daily video')
     exec("ffmpeg -y -framerate 1 -i ${cameraroll_path}/*.JPG -r 5 -c:v libx264 -pix_fmt yuv420p ./video.mp4")
 }
 
 // Deletes all images
 var clean = function(){
+    console.log('Cleaning gallery')
     exec('rm /private/var/mobile/Media/DCIM/100APPLE/*')
     exec('rm -rf /private/var/mobile/Media/Photos')
     exec('rm -rf /private/var/mobile/Media/PhotoData')
 }
 
-interval = 5 // seconds 
+interval = 1 // seconds 
 // Populate image element with webcam each second
 setInterval( () => {
     if (interval < 10){
