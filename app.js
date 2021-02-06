@@ -21,11 +21,12 @@ var capture_img = function(keep_open=false){
     if (keep_open == true){
         exec('activator send libactivator.camera.invoke-shutter')
     }else{
-        exec("activator send libactivator.lockscreen.toggle &&' \
-        sleep 5 \
-        activator send com.apple.camera \
-        activator send libactivator.camera.invoke-shutter \
-        sleep 5 \
+        exec("activator send libactivator.lockscreen.toggle && \
+        sleep 5 && \
+        activator send com.apple.camera && \
+        sleep 3 && \
+        activator send libactivator.camera.invoke-shutter && \
+        sleep 5 && \
         activator send libactivator.lockscreen.toggle")
     }
 }
@@ -64,7 +65,7 @@ var clean = function(){
     exec('rm -rf /private/var/mobile/Media/PhotoData')
 }
 
-interval = 5 * 1000 // 30 minutes 
+interval = 5 // seconds 
 // Populate image element with webcam each second
 setInterval( () => {
     if (interval < 10){
@@ -82,7 +83,7 @@ setInterval( () => {
     })
     }
     
-}, interval)
+}, interval*1000)
 
 server.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
