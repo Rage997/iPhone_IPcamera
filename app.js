@@ -7,30 +7,31 @@ const fs = require('fs')
 var exec = require('child_process').exec;
 
 port = 3000
+// cameraroll_path = '/private/var/mobile/Media/DCIM/100APPLE'
+cameraroll_path = '~/Desktop'
 
 app.get('/', function(request, response){
     response.sendFile( path.join(__dirname, 'index.html'));
 });
 
-// TODO capture image using ffmpeg
-// you can list the avaiable devices by: ffmpeg -f avfoundation -list_devices true -i ""
-// in a iphone index 0 is the back camera and 1 the front camera
-device_idx = 1
-// then you can capture the camera by: ffmpeg -f avfoundation -i "1" -vframes 1 out.jpg
+// We can control the camera using activator
+// see: http://junesiphone.com/actions/
 var capture_img = function(){
-    exec('ffmpeg -y -f avfoundation -i "1" -vframes 1 out.jpg',
-     function(error, stdout, stderr) {
-        console.dir(stdout);
-      });
+    exec('activator send libactivator.lockscreen.toggle')
+    exec('activator send com.apple.camera')
+    exec('activator send libactivator.camera.invoke-shutter')
+    exec('activator send libactivator.lockscreen.toggle')
 }
 
 // Populate image element with webcam each second
 setInterval( () => {
     console.log('Updating image')
     capture_img()
-    fs.readFile(path.join(__dirname, 'out.jpg'), (err, buffer) => {  
-        io.emit('image', {image: true, buffer: buffer.toString('base64') })
-    })
+    get_image()
+
+    // fs.readFile(path.join(__dirname, 'out.jpg'), (err, buffer) => {  
+    //     io.emit('image', {image: true, buffer: buffer.toString('base64') })
+    // })
 }, 1000)
 
 server.listen(port, () => {
