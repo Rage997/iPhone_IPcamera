@@ -21,13 +21,13 @@ After first ssh connection, I reccomend to change both root and mobile passwords
 
 ```echo "deb https://mcapollo.github.io/Public/ ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
 
-1. Now you can install node, ffmpeg and git
+2. Now you can install node, ffmpeg and git
 
 apt install ffmpeg node
 
-1. Clone this repo inside the iphone and start the webserver by running ```node app.js```
+3. Clone this repo inside the iphone and start the webserver by running ```node app.js```
 
-1. Done! Now you can connect on port 3000
+4. Done! Now you can connect on port 3000
 
 
 # TODO
