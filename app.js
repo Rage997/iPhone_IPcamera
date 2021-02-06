@@ -29,24 +29,24 @@ var capture_img = function(keep_open=false){
 }
 
 // Gets the most recent image
-oldest_time = null
-oldest_file = null
+newest_time = null
+newest_file = null
 var get_last_image = function( ){
     fs.readdir(path.resolve(cameraroll_path),function(err, list){
         list.forEach(function(file){
             file = path.resolve(path.join(cameraroll_path, file))
             const {birthtime} = fs.statSync(file);
             file_date = new Date(birthtime)
-            if (!oldest_time){
-                oldest_time = file_date
+            if (!newest_time){
+                newest_time = file_date
             }
 
-            if (file_date < oldest_time) {
-                oldest_time = file_date
-                oldest_file = file
+            if (file_date > newest_time) {
+                newest_time = file_date
+                newest_file = file
             }
         })
-    console.log('oldest', oldest_file)
+    console.log('newest', newest_file)
     })
 }
 
@@ -62,16 +62,18 @@ var clean = function(){
     exec('rm -rf /private/var/mobile/Media/PhotoData')
 }
 
-interval = 30 * 1000 // 30 minutes 
+interval = 3 * 1000 // 30 minutes 
 // Populate image element with webcam each second
 setInterval( () => {
-    console.log('Updating image')
-    // capture_img()
+    console.log('Taking picture')
+    capture_img()
     get_last_image()
-    if (oldest_file != null){
-        image = oldest_file
-    fs.readFile(path.join(__dirname, 'out.jpg'), (err, buffer) => {  
-        io.emit('image', {image: true, buffer: buffer.toString('base64') })
+    if (newest_file != null){
+        console.log('Updating newest picture')
+        image = newest_file
+        console.log('diocane immage', image)
+        fs.readFile(image, (err, buffer) => {  
+            io.emit('image', {image: true, buffer: buffer.toString('base64') })
     })
     }
     
