@@ -4,7 +4,7 @@ The idea is to repurpose an old iphone as a wifi camera. To do so the iphone wil
 
 # Installation
 
-1. Jailbreak using checkrain to open ssh port and then run on one terminal:
+1. Jailbreak using checkrain to open ssh port (you will need to install libusb i.e. ```apt install libusb```) and then run on one terminal:
 
 ```iproxy 44 23```
 then open a new terminal and run:
