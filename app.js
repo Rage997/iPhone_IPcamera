@@ -78,8 +78,9 @@ var convert_video = function(){
 var clean = function(){
     console.log('Cleaning gallery')
     exec('rm /private/var/mobile/Media/DCIM/100APPLE/*')
-    exec('rm -rf /private/var/mobile/Media/Photos')
-    exec('rm -rf /private/var/mobile/Media/PhotoData')
+    exec('rm -rf /private/var/mobile/Media/Photos/*')
+    // exec('rm -rf /private/var/mobile/Media/PhotoData/*')
+    newest_file = null
 }
 
 interval = 1 // seconds 
