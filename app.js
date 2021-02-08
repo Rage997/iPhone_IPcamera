@@ -87,8 +87,9 @@ var update_last_image = async function( ){
 
 // Convert all the images into a video using ffmpeg
 var convert_video = function(callback){
-    console.log('Converting images into daily video')
+    console.log('Start to convert images into daily video....')
     exec("ffmpeg -framerate 1 -pattern_type glob -i '/private/var/mobile/Media/DCIM/100APPLE/*.JPG' -vf scale='1280:-2'  -c:v libx264 -r 30 -pix_fmt yuv420p video.mp4")
+    console.log('Done to convert images into daily video!')
     callback()
 }
 
@@ -113,7 +114,7 @@ setTimeout(
         console.log('Cleaning old images and creating daily video')
         convert_video(clean)
     },
-    moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds')
+    1000*moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds')
  );
 
 
