@@ -51,7 +51,10 @@ newest_time = null
 newest_file = null
 var get_last_image = function( ){
     fs.readdir(path.resolve(cameraroll_path),function(err, list){
-        if(err){console.error(err)}
+        if(err){
+            console.error(err)
+            return
+        }
 
         list.forEach(function(file){
             file = path.resolve(path.join(cameraroll_path, file))
@@ -91,7 +94,7 @@ setInterval( () => {
     keep_open = (interval < 10) ? true : false
     capture_img(keep_open=keep_open)    
     get_last_image( )
-    
+
     if (newest_file != null){
         console.log('Updating newest picture')
         image = newest_file
