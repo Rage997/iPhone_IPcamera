@@ -31,7 +31,8 @@ app.get('/download', function(request, response){
 // We can control the camera using activator
 // see: http://junesiphone.com/actions/
 // not the best solution because the device will unlock to take a photo but it's the best I managed to do
-var capture_img = function(keep_open=false){
+var capture_img = async function(keep_open=false){
+    await Promise.resolve( ()=>{
     console.log('Taking picture')
     if (keep_open == true){
         exec('activator send libactivator.camera.invoke-shutter')
@@ -43,13 +44,13 @@ var capture_img = function(keep_open=false){
         activator send libactivator.camera.invoke-shutter && \
         sleep 5 && \
         activator send libactivator.lockscreen.toggle")
-    }
+    }})
 }
 
 // Gets the most recent image
 newest_time = null
 newest_file = null
-var get_last_image = function( ){
+var update_last_image = function( ){
     fs.readdir(path.resolve(cameraroll_path),function(err, list){
         if(err){
             console.error(err)
@@ -71,6 +72,15 @@ var get_last_image = function( ){
         })
     console.log('newest', newest_file)
     })
+    
+    if (newest_file != null){
+        console.log('Updating newest picture')
+        image = newest_file
+        fs.readFile(image, (err, buffer) => {  
+            if (err) throw err;
+            io.emit('image', {image: true, buffer: buffer.toString('base64') })
+    })
+    }
 }
 
 // Convert all the images into a video using ffmpeg
@@ -92,17 +102,9 @@ interval = 1 // seconds
 // Populate image element with webcam each second
 setInterval( () => {
     keep_open = (interval < 10) ? true : false
-    capture_img(keep_open=keep_open)    
-    get_last_image( )
-
-    if (newest_file != null){
-        console.log('Updating newest picture')
-        image = newest_file
-        fs.readFile(image, (err, buffer) => {  
-            if (err) throw err;
-            io.emit('image', {image: true, buffer: buffer.toString('base64') })
-    })
-    }
+    capture_img(keep_open=keep_open)
+    update_last_image()
+    // get_last_image( )
 
 }, interval*1000)
 
