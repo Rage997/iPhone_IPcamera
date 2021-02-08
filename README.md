@@ -35,4 +35,5 @@ the default root password is <em>alpine</em>. After first ssh connection, I recc
 
 # TODO
 [x] Unfortunately ffmpeg needs to get access granted to control the phone camera. I still haven't managed how to do that therefore this project can be considered incomplete. -> Update: this has been done using activator to take pictures. However, to do so the iPhone screens has to be turned on. This is more a workaround rather than a solution.
+
 [] Write a nice looking front-end
