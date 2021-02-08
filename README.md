@@ -1,6 +1,6 @@
 # Turn an old iphone into a camera webserver
 
-The idea is to repurpose an old iphone as a wifi camera. To do so the iphone will record video using ffmpeg and then serve them on a node.js server.
+The idea is to repurpose an old iphone as a wifi camera. There are already many "Ip-Camera" application existing on the App Store, however my goal was to install and control it through ssh.
 
 # Installation
 
