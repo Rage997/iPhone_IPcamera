@@ -51,6 +51,8 @@ newest_time = null
 newest_file = null
 var get_last_image = function( ){
     fs.readdir(path.resolve(cameraroll_path),function(err, list){
+        if(err){console.error(err)}
+
         list.forEach(function(file){
             file = path.resolve(path.join(cameraroll_path, file))
             const {birthtime} = fs.statSync(file);
@@ -86,13 +88,10 @@ var clean = function(){
 interval = 1 // seconds 
 // Populate image element with webcam each second
 setInterval( () => {
-    if (interval < 10){
-        capture_img(keep_open=true)        
-    }else{
-        capture_img(keep_open=false)
-    }
+    keep_open = (interval < 10) ? true : false
+    capture_img(keep_open=keep_open)    
+    get_last_image( )
     
-    get_last_image()
     if (newest_file != null){
         console.log('Updating newest picture')
         image = newest_file
@@ -107,8 +106,9 @@ setInterval( () => {
 // At midnight: create a video of the day and delete all images
 setTimeout(
     ()=>{
+        console.log('Cleaning old images and creating daily video')
         convert_video()
-        clean()  
+        // clean()  
     },
     moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds')
  );
