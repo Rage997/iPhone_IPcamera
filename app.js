@@ -86,18 +86,19 @@ var update_last_image = async function( ){
 }
 
 // Convert all the images into a video using ffmpeg
-var convert_video = function(){
+var convert_video = function(callback){
     console.log('Converting images into daily video')
-    exec(`ffmpeg -y -framerate 1 -i ${cameraroll_path}/*.JPG -r 5 -c:v libx264 -pix_fmt yuv420p ./video.mp4`)
+    exec("ffmpeg -framerate 1 -pattern_type glob -i '/private/var/mobile/Media/DCIM/100APPLE/*.JPG' -vf scale='1280:-2'  -c:v libx264 -r 30 -pix_fmt yuv420p video.mp4")
+    callback()
 }
 
 // Deletes all images
 var clean = function(){
+    newest_file = null
     console.log('Cleaning gallery')
     exec('rm /private/var/mobile/Media/DCIM/100APPLE/*')
     exec('rm -rf /private/var/mobile/Media/Photos/*')
     // exec('rm -rf /private/var/mobile/Media/PhotoData/*')
-    newest_file = null
 }
 // Populate image element with webcam each second
 setInterval( () => {
@@ -110,8 +111,7 @@ setInterval( () => {
 setTimeout(
     ()=>{
         console.log('Cleaning old images and creating daily video')
-        convert_video()
-        // clean()  
+        convert_video(clean)
     },
     moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds')
  );
