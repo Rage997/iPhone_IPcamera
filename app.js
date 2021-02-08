@@ -31,8 +31,8 @@ app.get('/download', function(request, response){
 // We can control the camera using activator
 // see: http://junesiphone.com/actions/
 // not the best solution because the device will unlock to take a photo but it's the best I managed to do
-var capture_img = async function(keep_open=false){
-    await Promise.resolve( ()=>{
+var capture_img = function(keep_open=false){
+    // await Promise.resolve( ()=>{
     console.log('Taking picture')
     if (keep_open == true){
         exec('activator send libactivator.camera.invoke-shutter')
@@ -44,7 +44,7 @@ var capture_img = async function(keep_open=false){
         activator send libactivator.camera.invoke-shutter && \
         sleep 5 && \
         activator send libactivator.lockscreen.toggle")
-    }})
+    })
 }
 
 // Gets the most recent image
