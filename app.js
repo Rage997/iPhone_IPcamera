@@ -30,7 +30,6 @@ app.get('/download', function(request, response){
       })
 });
 
-
 // We can control the camera using activator
 // see: http://junesiphone.com/actions/
 // not the best solution because the device will unlock to take a photo but it's the best I managed to do
@@ -89,7 +88,7 @@ var update_last_image = async function( ){
 // Convert all the images into a video using ffmpeg
 var convert_video = function(){
     console.log('Converting images into daily video')
-    exec("ffmpeg -y -framerate 1 -i ${cameraroll_path}/*.JPG -r 5 -c:v libx264 -pix_fmt yuv420p ./video.mp4")
+    exec(`ffmpeg -y -framerate 1 -i ${cameraroll_path}/*.JPG -r 5 -c:v libx264 -pix_fmt yuv420p ./video.mp4`)
 }
 
 // Deletes all images
@@ -105,6 +104,7 @@ setInterval( () => {
     keep_open = (interval < 10) ? true : false    
     update_last_image()
 }, interval*1000)
+
 
 // At midnight: create a video of the day and delete all images
 setTimeout(
