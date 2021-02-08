@@ -10,6 +10,9 @@ var exec = require('child_process').exec;
 port = 3000
 cameraroll_path = '/private/var/mobile/Media/DCIM/100APPLE'
 
+interval = 1 // seconds to pass between two pictures
+keep_open = false // flag to keep the camera open or close it
+
 app.get('/', function(request, response){
     response.sendFile( path.join(__dirname, 'index.html'));
 });
@@ -31,7 +34,7 @@ app.get('/download', function(request, response){
 // We can control the camera using activator
 // see: http://junesiphone.com/actions/
 // not the best solution because the device will unlock to take a photo but it's the best I managed to do
-var capture_img = function(keep_open=false){
+var capture_img = function(){
     console.log('Taking picture')
     if (keep_open == true){
         exec('activator send libactivator.camera.invoke-shutter')
@@ -97,15 +100,10 @@ var clean = function(){
     // exec('rm -rf /private/var/mobile/Media/PhotoData/*')
     newest_file = null
 }
-
-interval = 1 // seconds 
 // Populate image element with webcam each second
 setInterval( () => {
-    keep_open = (interval < 10) ? true : false
-    
+    keep_open = (interval < 10) ? true : false    
     update_last_image()
-    // get_last_image( )
-
 }, interval*1000)
 
 // At midnight: create a video of the day and delete all images
