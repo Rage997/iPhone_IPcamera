@@ -4,16 +4,15 @@ The idea is to repurpose an old iphone as a wifi camera. To do so the iphone wil
 
 # Installation
 
-1. Jailbreak using checkrain to open ssh port (you will need to install libusb i.e. ```apt install libusb```) and then run on one terminal:
+1. Jailbreak using checkrain and install Cydia. You can connect through ssh using usb connection by installing libusb (i.e. ```apt install libusb```) and then run:
 
 ```iproxy 44 23```
+
 then open a new terminal and run:
 
 ```ssh root@localhost -p 44```
 
-the default root password is <em>alpine</em>
-
-After first ssh connection, I reccomend to change both root and mobile passwords for security and I reccomend to update the repos.
+the default root password is <em>alpine</em>. After first ssh connection, I reccomend to change both root and mobile passwords for security and to update the repos.
 
 ```passwd root```
 
@@ -21,23 +20,18 @@ After first ssh connection, I reccomend to change both root and mobile passwords
 
 ```apt update && apt upgrade```
 
-2. Add https://mcapollo.github.io/Public/ and https://repo.packix.com/ to the Cydia sources
+2. Install git and clone the repo.
 
-```echo "deb http://lucasjackson.io/repo ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
+```apt install git```
 
-```echo "deb https://mcapollo.github.io/Public/ ./" >> /var/mobile/Library/Caches/com.saurik.Cydia/sources.list```
+```git clone https://github.com/Rage997/iPhone_IPcamera.git && cd iPhone_IPcamera```
 
-3. Now you can install node, ffmpeg, libactivator and git
 
-apt install nodejs git libactivator ffmpeg
+2. Install the dependencies. You can run <em>install_dependecies.sh</em>
 
-### UPDATE
-Since ffmpeg can't get access to the cameras, we can workaround using activator and then we can convert the jpg into video
+```chmod 755 ./install_dependecies.sh && ./install_dependecies.sh```
 
-4. Clone this repo inside the iphone and start the webserver by running ```node app.js``` after having installed the dependecies ```npm i```
-
-5. Done! Now you can connect on port 3000
-
+3. Done! You can start the webserver by running ```node app.js``` and connect on port 3000. If you are using libusb you can run ```iproxy 3000 3000``` and then open the broswer http://localhost:3000/
 
 # TODO
-[ x ] Unfortunately ffmpeg needs to get access granted to control the phone camera. I still haven't managed how to do that therefore this project can be considered incomplete. -> this has been done using activator to take pictures. However, to do so the iPhone screens has to be turned on.
+[x] Unfortunately ffmpeg needs to get access granted to control the phone camera. I still haven't managed how to do that therefore this project can be considered incomplete. -> this has been done using activator to take pictures. However, to do so the iPhone screens has to be turned on.
