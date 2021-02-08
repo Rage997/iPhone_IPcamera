@@ -49,7 +49,8 @@ var capture_img = function(keep_open=false){
 // Gets the most recent image
 newest_time = null
 newest_file = null
-var update_last_image = function( ){
+var update_last_image = async function( ){
+    await capture_img(keep_open=keep_open)
     fs.readdir(path.resolve(cameraroll_path),function(err, list){
         if(err){
             console.error(err)
@@ -101,7 +102,7 @@ interval = 1 // seconds
 // Populate image element with webcam each second
 setInterval( () => {
     keep_open = (interval < 10) ? true : false
-    capture_img(keep_open=keep_open)
+    
     update_last_image()
     // get_last_image( )
 
