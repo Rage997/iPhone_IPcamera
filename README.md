@@ -34,4 +34,5 @@ the default root password is <em>alpine</em>. After first ssh connection, I recc
 3. Done! You can start the webserver by running ```node app.js``` and connect on port 3000. If you are using libusb you can run ```iproxy 3000 3000``` and then open the broswer http://localhost:3000/
 
 # TODO
-[x] Unfortunately ffmpeg needs to get access granted to control the phone camera. I still haven't managed how to do that therefore this project can be considered incomplete. -> this has been done using activator to take pictures. However, to do so the iPhone screens has to be turned on.
+[x] Unfortunately ffmpeg needs to get access granted to control the phone camera. I still haven't managed how to do that therefore this project can be considered incomplete. -> Update: this has been done using activator to take pictures. However, to do so the iPhone screens has to be turned on. This is more a workaround rather than a solution.
+[] Write a nice looking front-end
