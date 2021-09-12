@@ -37,3 +37,6 @@ the default root password is <em>alpine</em>. After first ssh connection, I recc
 [x] Unfortunately ffmpeg needs to get access granted to control the phone camera. I still haven't managed how to do that therefore this project can be considered incomplete. -> Update: this has been done using activator to take pictures. However, to do so the iPhone screens has to be turned on. This is more a workaround rather than a solution.
 
 [] Write a nice looking front-end
+
+Note:
+This has been done on a iphone 5s running IOS 12.5.1 imho IOS 12 has the best cydia support for this kind of tweaks. I've also tried using IOS 9 but apt commandline and OPENSSH responsiviness is not as good as in IOS 12
