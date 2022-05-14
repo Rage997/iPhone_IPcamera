@@ -4,7 +4,7 @@ The idea is to repurpose an old iPhone as a wifi camera. There are already many 
 
 # Installation
 
-1. Jailbreak using checkrain and install Cydia. You can connect through ssh using usb connection by installing libusb (i.e. ```apt install libusb```) and then run:
+1. Jailbreak using checkrain and install Cydia. Search for "OpenSSH" and install the repo. Once installed you can either forward the connection through usb or search for the iphone IP. To forward ssh connection through usb run:
 
 ```iproxy 23 44```
 
